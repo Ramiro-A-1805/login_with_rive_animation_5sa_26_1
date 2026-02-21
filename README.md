@@ -43,7 +43,7 @@ The core logic is organized within the `lib` directory as follows:
 
 ## 🎬 Demo
 <div align="center">
-  <img src="https://raw.githubusercontent.com/rive-app/rive-flutter/master/example/assets/login_screen_character.gif" alt="Rive Login Demo" width="350">
+  <img src="https://raw.githubusercontent.com/rive-app/rive-flutter/master/example/assets/login_screen_character.gif" width="350">
   <p><i>Interactive character tracking input and reacting to login states.</i></p>
 </div>
 
