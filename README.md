@@ -43,7 +43,7 @@ The core logic is organized within the `lib` directory as follows:
 
 ## 🎬 Demo
 <div align="center">
-  <img src="https://flutterawesome.com/content/images/2021/08/example--1-.gif" width="350">
+  <img src="https://github.com/user-attachments/assets/b8b23860-d8bc-4504-9189-d1198bd387fe" width="350">
   <p><i>Interactive character tracking input and reacting to login states.</i></p>
 </div>
 
