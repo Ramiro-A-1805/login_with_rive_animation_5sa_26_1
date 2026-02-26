@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'dart:async'; //3.1 Importa el Timer
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -19,9 +20,16 @@ class _LoginScreenState extends State<LoginScreen> {
   SMITrigger? _trigSuccess;
   SMITrigger? _trigFail;
 
+//2.1 Variable para el recorrido de la mirada
+  SMINumber? _numlook;
+
+
   //1.1) Crear variables para FocusNode
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
+
+  //3.2 Timer para detener la mirada
+  Timer? _typingDebounce;
 
   //1.2) Listener para FocusNode(Oyentes/chismosos)
   @override
@@ -33,6 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
         if (_isHandsUp != null) {
           // manos abajo en el email
           _isHandsUp!.change(false);
+          //2.2 mirada neutral
+          _numlook?.value = 50.0;
         }
       }
     });
@@ -76,6 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     _isHandsUp = _controller!.findSMI('isHandsUp') as SMIBool?;
                     _trigSuccess = _controller!.findSMI('trigSuccess') as SMITrigger?;
                     _trigFail = _controller!.findSMI('trigFail') as SMITrigger?;
+                    //2.3 vincular numLook
+                    _numlook = _controller!.findSMI('numLook');
                   },
                   fit: BoxFit.contain,
                 ),
@@ -94,6 +106,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (_isChecking == null) return;
                   // activar el modo chismoso
                   _isChecking!.change(true);
+                  //2.4 Implementar numLook
+                  //Ajustes de limites de 0 a 100
+                  //80 como medida de calibracion
+                  final look = (value.length/80.0*100.0)
+                  .clamp(0.0, 100.0); //Clamp es el rango (Abrazadera)
+                  _numlook?.value = look;
+
+                  //3.3 Debounce: si vuelve a teclear, reinicia el contador
+                  // cancelar cualquier timer existente
+                  _typingDebounce?.cancel();
+                  // crear un nuevo timer
+                  _typingDebounce = Timer(
+                    const Duration(seconds: 1), () {
+                      //Si se cierra la pantalla, quita el contador
+                      if (!mounted) return;
+                      //Mirada neutra
+                      _isChecking?.change(false);
+                    }
+                  );
 
                 },
                 decoration: InputDecoration(
@@ -134,17 +165,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 25),
             ],
           ),
         ),
       ),
     );
   }
+
+  //1.4 Liberar memoria/recursos al salir de la pantalla
   @override
   void dispose() {
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
+    _typingDebounce?.cancel();
     super.dispose();
   }
 }
