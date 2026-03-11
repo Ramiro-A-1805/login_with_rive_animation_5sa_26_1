@@ -8,6 +8,7 @@ This project features a high-quality, interactive login interface built with **F
 * **Subject:** [Login with Rive animation]
 * **Professor:** [Rodrigo Fidel Gaxiola Sosa]
 * **Student:** [Ramiro German Arcila Gamboa]
+* **School:** [Instituto Tecnológico de Merida]
 
 ---
 
@@ -43,7 +44,7 @@ The core logic is organized within the `lib` directory as follows:
 
 ## 🎬 Demo
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/b8b23860-d8bc-4504-9189-d1198bd387fe" width="350">
+  <img src="https://github.com/user-attachments/assets/170e36dd-3dfa-41fe-9edb-a8e2a5a0e0ac" width="350">
   <p><i>Interactive character tracking input and reacting to login states.</i></p>
 </div>
 
